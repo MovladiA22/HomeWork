@@ -3,14 +3,25 @@ using UnityEngine;
 public class CounterRenderer : MonoBehaviour
 {
     [SerializeField] private TextMesh _text;
+    [SerializeField] private Counter _counter;
 
-    public void DisplayCount(int count)
+    private void DisplayCount()
     {
-        _text.text = count.ToString();
+        _text.text = _counter.CurrentCount.ToString();
     }
 
     private void Start()
     {
-        _text.text = "0";
+        _text.text = "";
+    }
+
+    private void OnEnable()
+    {
+        _counter.Counting += DisplayCount;
+    }
+
+    private void OnDisable()
+    {
+        _counter.Counting -= DisplayCount;
     }
 }

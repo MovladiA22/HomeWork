@@ -467,7 +467,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _delay: 0.5
-  _counterRenderer: {fileID: 1326831228}
 --- !u!1 &746020911
 GameObject:
   m_ObjectHideFlags: 0
@@ -660,6 +659,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _text: {fileID: 1326831225}
+  _counter: {fileID: 536000315}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

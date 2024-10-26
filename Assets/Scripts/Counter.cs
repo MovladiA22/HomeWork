@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -5,11 +6,13 @@ using UnityEngine.EventSystems;
 public class Counter : MonoBehaviour, IPointerClickHandler
 {
     [SerializeField] private float _delay;
-    [SerializeField] private CounterRenderer _counterRenderer;
 
+    public event Action Counting;
     private Coroutine _coroutine;
-    private bool _isPaused = false;
+    private bool _isPaused = true;
     private int _count = 0;
+
+    public int CurrentCount => _count;
 
     public void OnPointerClick(PointerEventData eventData)
     {
@@ -18,11 +21,7 @@ public class Counter : MonoBehaviour, IPointerClickHandler
 
     private void StartCount()
     {
-        if (_coroutine == null)
-        {
-            _coroutine = StartCoroutine(Count());
-        }
-        else if (_isPaused)
+        if (_isPaused)
         {
             _coroutine = StartCoroutine(Count());
             _isPaused = false;
@@ -39,9 +38,10 @@ public class Counter : MonoBehaviour, IPointerClickHandler
     {
         var wait = new WaitForSeconds(_delay);
 
-        while (_count++ < int.MaxValue)
+        while (_count < int.MaxValue)
         {
-            _counterRenderer.DisplayCount(_count);
+            Counting?.Invoke();
+            _count++;
             yield return wait;
         }
     }    
