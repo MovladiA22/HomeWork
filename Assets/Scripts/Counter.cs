@@ -4,8 +4,8 @@ using UnityEngine.EventSystems;
 
 public class Counter : MonoBehaviour, IPointerClickHandler
 {
-    [SerializeField] private TextMesh _text;
     [SerializeField] private float _delay;
+    [SerializeField] private CounterRenderer _counterRenderer;
 
     private Coroutine _coroutine;
     private bool _isPaused = false;
@@ -35,24 +35,14 @@ public class Counter : MonoBehaviour, IPointerClickHandler
 
     }
 
-    private void Start()
-    {
-        _text.text = "0";
-    }
-
     private IEnumerator Count()
     {
         var wait = new WaitForSeconds(_delay);
 
         while (_count++ < int.MaxValue)
         {
-            DisplayCount();
+            _counterRenderer.DisplayCount(_count);
             yield return wait;
         }
-    }
-
-    private void DisplayCount()
-    {
-        _text.text = _count.ToString();
     }    
 }
