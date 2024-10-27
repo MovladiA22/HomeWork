@@ -40,8 +40,8 @@ public class Counter : MonoBehaviour, IPointerClickHandler
 
         while (_count < int.MaxValue)
         {
-            Counting?.Invoke();
             _count++;
+            Counting?.Invoke();
             yield return wait;
         }
     }    
